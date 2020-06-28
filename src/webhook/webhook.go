@@ -156,12 +156,14 @@ func (whsvr *webHookServer) validating(ar *v1beta1.AdmissionReview) *v1beta1.Adm
 			for _, servicePort := range service.Spec.Ports {
 				//fmt.Println(service.Namespace, servicePort.NodePort)
 				if !cache.PortCacheInstance().ExistKeyValue(int(servicePort.NodePort), service.Namespace) {
+					glog.Infof("Unauthorized nodeport: rejected. namespace: %s, service: %s, nodeport: %d",resourceNamespace, resourceName, servicePort.NodePort )
 					allowed = false
 					result = &metav1.Status{
 						Reason: "Unauthorized nodeport",
 					}
 					break
 				}
+				glog.Infof("Authorized nodeport: passed. namespace: %s, service: %s, nodeport: %d",resourceNamespace, resourceName, servicePort.NodePort )
 			}
 		}
 	}

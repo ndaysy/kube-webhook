@@ -6,11 +6,11 @@ metadata:
   labels:
     app: admission-kube-webhook
 webhooks:
-  - name: kube-webhook-nodeport
+  - name: nodeport.kube-webhook.cn
     clientConfig:
       service:
         name: admission-kube-webhook-svc
-        namespace: default
+        namespace: aikube
         path: "/validating"
       caBundle: ${CA_BUNDLE}
     rules:

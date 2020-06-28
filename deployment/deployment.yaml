@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
         - name: admission-kube-webhook
-          image: kube/admission-kube-webhook:v1
-          imagePullPolicy: Always
+          image: aikube/kube-webhook:v0.2
+          imagePullPolicy: IfNotPresent
           args:
             - -tlsCertPath=/etc/webhook/certs/cert.pem
             - -tlsKeyPath=/etc/webhook/certs/key.pem
@@ -31,12 +31,12 @@ spec:
               mountPath: /etc/webhook/certs
               readOnly: true
             - name: webhook-config
-              mountPath: /etc/webhook/config
+              mountPath: /etc/webhook/conf
       volumes:
         - name: webhook-certs
           secret:
             secretName: admission-kube-webhook-certs
         - name: webhook-config
           configMap:
-            name: admission-kube-webhookconfigmap
+            name: kube-webhook-configmap
 
