@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-webhook-deployment
+  namespace: aikube
+  labels:
+    app: admission-kube-webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admission-kube-webhook
+  template:
+    metadata:
+      labels:
+        app: admission-kube-webhook
+    spec:
+      containers:
+        - name: admission-kube-webhook
+          image: kube/admission-kube-webhook:v1
+          imagePullPolicy: Always
+          args:
+            - -tlsCertPath=/etc/webhook/certs/cert.pem
+            - -tlsKeyPath=/etc/webhook/certs/key.pem
+            - -portConfigFile=/etc/webhook/conf/ports.conf
+            - -alsologtostderr
+            - -v=4
+            - 2>&1
+          volumeMounts:
+            - name: webhook-certs
+              mountPath: /etc/webhook/certs
+              readOnly: true
+            - name: webhook-config
+              mountPath: /etc/webhook/config
+      volumes:
+        - name: webhook-certs
+          secret:
+            secretName: admission-kube-webhook-certs
+        - name: webhook-config
+          configMap:
+            name: admission-kube-webhookconfigmap
+
