@@ -34,9 +34,9 @@ var (
 )
 
 const (
-	admissionWebhookAnnotationValidateKey = "aikube.com/validate"
-	//admissionWebhookAnnotationMutateKey   = "aikube.com/mutate"
-	//admissionWebhookAnnotationStatusKey   = "aikube.com/status"
+	admissionWebhookAnnotationValidateKey = "ikube.com/validate"
+	//admissionWebhookAnnotationMutateKey   = "ikube.com/mutate"
+	//admissionWebhookAnnotationStatusKey   = "ikube.com/status"
 
 	//nameLabel = "app.kubernetes.io/name"
 	//

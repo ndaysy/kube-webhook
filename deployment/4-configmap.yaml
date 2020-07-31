@@ -5,4 +5,4 @@ metadata:
   namespace: ikube
 data:
   ports.conf: |
-    aikube: 80
+    nsdemo: 30000,30001,30010-30020
