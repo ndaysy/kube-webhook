@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: kube-webhook-configmap
-  namespace: aikube
-data:
-  ports.conf: |
-    default:30000,30001-30003

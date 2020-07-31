@@ -48,7 +48,7 @@ done
 
 [ -z ${service} ] && service=admission-kube-webhook-svc
 [ -z ${secret} ] && secret=admission-kube-webhook-certs
-[ -z ${namespace} ] && namespace=aikube
+[ -z ${namespace} ] && namespace=ikube
 
 if [ ! -x "$(command -v openssl)" ]; then
     echo "openssl not found"

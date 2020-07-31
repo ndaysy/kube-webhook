@@ -1,7 +1,6 @@
 #!/bin/bash
 
 ROOT=$(cd $(dirname $0)/../; pwd)
-echo $ROOT
 
 set -o errexit
 set -o nounset
@@ -11,6 +10,6 @@ export CLUSER_NAME=$(kubectl config get-contexts |grep `kubectl config current-c
 export CA_BUNDLE=$(kubectl config view --raw --flatten -o json | jq -r '.clusters[] | select(.name == "'$CLUSER_NAME'") | .cluster."certificate-authority-data"')
 
 #sed -e "s|\${CA_BUNDLE}|${CA_BUNDLE}|g"
-rm -rf validatingwebhook-ca.yaml
-cp validatingwebhook.yaml validatingwebhook-ca.yaml 
-sed -i "s/\${CA_BUNDLE}/${CA_BUNDLE}/g" validatingwebhook-ca.yaml
+rm -rf 3-validatingwebhook-ca.yaml
+cp validatingwebhook.tpl 3-validatingwebhook-ca.yaml 
+sed -i "s/\${CA_BUNDLE}/${CA_BUNDLE}/g" 3-validatingwebhook-ca.yaml

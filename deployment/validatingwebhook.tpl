@@ -2,7 +2,7 @@ apiVersion: admissionregistration.k8s.io/v1beta1
 kind: ValidatingWebhookConfiguration
 metadata:
   name: validation-kube-webhook-cfg
-  namespace: aikube
+  namespace: ikube
   labels:
     app: admission-kube-webhook
 webhooks:
@@ -10,15 +10,15 @@ webhooks:
     clientConfig:
       service:
         name: admission-kube-webhook-svc
-        namespace: aikube
+        namespace: ikube
         path: "/validating"
       caBundle: ${CA_BUNDLE}
     rules:
-      - operations: [ "CREATE" ]
+      - operations: [ "CREATE", "UPDATE" ]
         apiGroups: ["apps", "extensions", ""]
         apiVersions: ["v1", "v1beta1"]
         resources: ["services"]
-    namespaceSelector: {}
- #   namespaceSelector:
- #     matchLabels:
- #       admission-kube-webhook: enabled
+    namespaceSelector:
+      matchLabels:
+        admission-kube-webhook: enabled
+ #   namespaceSelector: {}

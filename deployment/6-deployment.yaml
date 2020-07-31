@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kube-webhook-deployment
-  namespace: aikube
+  namespace: ikube
   labels:
     app: admission-kube-webhook
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: admission-kube-webhook
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: admission-kube-webhook
-          image: aikube/kube-webhook:v0.2
+          image: reg.harbor.com/ikube/kube-webhook:v2
           imagePullPolicy: IfNotPresent
           args:
             - -tlsCertPath=/etc/webhook/certs/cert.pem
@@ -38,5 +38,5 @@ spec:
             secretName: admission-kube-webhook-certs
         - name: webhook-config
           configMap:
-            name: kube-webhook-configmap
+            name: kube-webhook-prod-configmap
 
